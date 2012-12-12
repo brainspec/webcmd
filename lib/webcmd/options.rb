@@ -10,7 +10,7 @@ module Webcmd
         opts.banner = "Usage: webcmd [options]"
 
         opts.on '-o', '--host HOST', 'listen on HOST (default: 0.0.0.0)' do |host|
-          options[:Host] = host
+          @options[:Host] = host
         end
 
         opts.on '-p', '--port PORT', 'use PORT (default: 9292)' do |port|
