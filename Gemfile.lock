@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webcmd (0.0.1)
+    webcmd (0.0.2)
       puma (~> 1.6.3)
       rack (~> 1.4.1)
 
