@@ -8,8 +8,9 @@ module Webcmd
     end
 
     def call(env)
-      if token_valid?(env)
-        [200, {'Content-Type' => 'text/plain'}, CommandRunner.new(@command)]
+      req = Rack::Request.new(env)
+      if token_valid?(req)
+        [200, {'Content-Type' => 'text/plain'}, CommandRunner.new(@command, req.params)]
       else
         [403, {'Content-Type' => 'text/plain'}, ['Token invalid']]
       end
@@ -17,8 +18,7 @@ module Webcmd
 
     private
 
-    def token_valid?(env)
-      req = Rack::Request.new(env)
+    def token_valid?(req)
       req.params['token'] == @token
     end
   end

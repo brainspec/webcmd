@@ -49,5 +49,11 @@ module Webcmd
       get '/', token: '1234'
       assert_equal 403, last_response.status
     end
+
+    def test_pass_env_var
+      options[:command] = 'echo $WEBCMD_TEST_VAR'
+      get '/', test_var: 'test'
+      assert_equal 'test', last_response.body.strip
+    end
   end
 end

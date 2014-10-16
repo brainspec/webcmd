@@ -1,7 +1,8 @@
 module Webcmd
   class CommandRunner
-    def initialize(command)
+    def initialize(command, params = {})
       @command = command
+      @params  = params
     end
 
     def each(&block)
@@ -15,7 +16,11 @@ module Webcmd
     private
 
     def shell_env
-      Hash[ENV.keys.grep(/^BUNDLE_/).map { |k| [k, nil] }]
+      Hash[ENV.keys.grep(/^BUNDLE_/).map { |k| [k, nil] }].tap do |env|
+        @params.each_pair do |name, value|
+          env["WEBCMD_#{name.upcase}"] = value
+        end
+      end
     end
   end
 end
